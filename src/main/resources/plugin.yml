@@ -1,0 +1,11 @@
+name: AxBackpacks
+description: $description
+prefix: AxBackpacks
+version: '${version}'
+
+main: de.jaunikapauni.axbackpacks.AxBackpacks
+api-version: '26.1.2'
+load: POSTWORLD
+
+authors: [ JauniKapauni ]
+website: https://github.com/JauniKapauni
