@@ -9,3 +9,8 @@ load: POSTWORLD
 
 authors: [ JauniKapauni ]
 website: https://github.com/JauniKapauni
+
+commands:
+  backpack:
+    usage: /backpack
+    description: Opens your backpack
