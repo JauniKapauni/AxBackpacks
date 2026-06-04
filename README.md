@@ -1,6 +1,9 @@
 # AxBackpacks
 > Minecraft Plugin that adds a backpack to every player
 ---
+## Requirements
+- Minecraft Paper 26.1.2 Server
+- MariaDB / MySQL Server
 ## Features
 - Sync of backpack across all backends
 ---
