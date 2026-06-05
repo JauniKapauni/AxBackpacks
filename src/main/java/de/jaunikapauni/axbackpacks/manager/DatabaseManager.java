@@ -35,6 +35,12 @@ public class DatabaseManager {
         return hikari.getConnection();
     }
 
+    public void close(){
+        if(hikari != null && !hikari.isClosed()){
+            hikari.close();
+        }
+    }
+
     public boolean initDatabaseTable1(){
         try(Connection conn = getConnection()){
             try(PreparedStatement ps = conn.prepareStatement("CREATE TABLE IF NOT EXISTS backpacks(uuid VARCHAR(255), inventory TEXT)")){
