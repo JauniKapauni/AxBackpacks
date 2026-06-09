@@ -25,6 +25,8 @@ database:
   username: root
   password:
 ```
+## Commands & Permissions
+- `/backpack` - `axbackpacks.backpack`
 ---
 ## Support
 Discord: [AxForge](https://discord.gg/rYSxV4daS8)
