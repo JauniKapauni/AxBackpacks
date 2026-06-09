@@ -16,7 +16,15 @@ public class BackpackCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
+        if(!(sender instanceof Player)){
+            sender.sendMessage("only players can run this command!");
+            return true;
+        }
         Player p = (Player) sender;
+        if(!p.hasPermission("axbackpacks.backpack")){
+            p.sendMessage("You don't have the permission!");
+            return true;
+        }
         Inventory inv = reference.getPlayerManager().loadPlayerBackpack(p);
         p.openInventory(inv);
         return true;
