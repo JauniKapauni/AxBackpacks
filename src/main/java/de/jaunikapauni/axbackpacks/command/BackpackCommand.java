@@ -22,7 +22,7 @@ public class BackpackCommand implements CommandExecutor {
         }
         Player p = (Player) sender;
         if(!p.hasPermission("axbackpacks.backpack")){
-            p.sendMessage("You don't have the permission!");
+            p.sendMessage("You don't have the permission! [axbackpacks.backpack]");
             return true;
         }
         Inventory inv = reference.getPlayerManager().loadPlayerBackpack(p);
