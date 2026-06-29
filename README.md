@@ -30,6 +30,7 @@ database:
 ---
 ## Support
 Discord: [AxForge](https://discord.gg/rYSxV4daS8)
+
 ---
 ## License
 AxBackpacks is licensed under the permissive MIT License. Please see [License](https://github.com/JauniKapauni/AxBackpacks/blob/master/LICENSE) for more info.
