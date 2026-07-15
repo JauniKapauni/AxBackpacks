@@ -3,6 +3,7 @@ package de.jaunikapauni.axbackpacks;
 import de.jaunikapauni.axbackpacks.command.BackpackCommand;
 import de.jaunikapauni.axbackpacks.listener.InventoryCloseListener;
 import de.jaunikapauni.axbackpacks.listener.PlayerJoinListener;
+import de.jaunikapauni.axbackpacks.listener.PlayerQuitListener;
 import de.jaunikapauni.axbackpacks.manager.DatabaseManager;
 import de.jaunikapauni.axbackpacks.manager.PlayerManager;
 import org.bukkit.Bukkit;
@@ -35,6 +36,7 @@ public final class AxBackpacks extends JavaPlugin {
         getCommand("backpack").setExecutor(new BackpackCommand(this));
         getServer().getPluginManager().registerEvents(new InventoryCloseListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerQuitListener(this), this);
         getLogger().info("");
         getLogger().info("----------------------------------------");
         getLogger().info("Name: " + getName());

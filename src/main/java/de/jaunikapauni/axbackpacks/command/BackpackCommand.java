@@ -25,7 +25,7 @@ public class BackpackCommand implements CommandExecutor {
             p.sendMessage("You don't have the permission! [axbackpacks.backpack]");
             return true;
         }
-        Inventory inv = reference.getPlayerManager().loadPlayerBackpack(p);
+        Inventory inv = reference.getPlayerManager().getPlayerBackpacks().get(p.getUniqueId());
         p.openInventory(inv);
         return true;
     }

@@ -16,11 +16,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Base64;
+import java.util.Map;
+import java.util.UUID;
 
 public class PlayerManager {
     AxBackpacks reference;
     public PlayerManager(AxBackpacks reference){
         this.reference = reference;
+    }
+    Map<UUID, Inventory> playerBackpacks;
+    public Map<UUID, Inventory> getPlayerBackpacks(){
+        return playerBackpacks;
     }
 
     public String serializeInventory(Inventory inv) throws IOException {

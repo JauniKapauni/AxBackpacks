@@ -33,6 +33,7 @@ public class PlayerJoinListener implements Listener {
                             insert.executeUpdate();
                         }
                     }
+                    reference.getPlayerManager().getPlayerBackpacks().put(p.getUniqueId(), reference.getPlayerManager().loadPlayerBackpack(p));
                 }
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);

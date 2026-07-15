@@ -20,7 +20,7 @@ public class InventoryCloseListener implements Listener {
         if(e.getView().getTitle().equals("Rucksack")){
             Player p = (Player) e.getPlayer();
             Inventory inv = e.getInventory();
-            reference.getPlayerManager().setPlayerBackpack(p, inv);
+            reference.getPlayerManager().getPlayerBackpacks().put(p.getUniqueId(), inv);
         }
     }
 }
