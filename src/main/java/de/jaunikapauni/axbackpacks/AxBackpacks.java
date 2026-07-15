@@ -49,6 +49,13 @@ public final class AxBackpacks extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        databaseManager.close();
+        if(playerManager != null){
+            getLogger().info("Saving backpacks");
+            playerManager.saveAllBackpacks();
+            getLogger().info("Backpacks saved");
+        }
+        if(databaseManager != null){
+            databaseManager.close();
+        }
     }
 }

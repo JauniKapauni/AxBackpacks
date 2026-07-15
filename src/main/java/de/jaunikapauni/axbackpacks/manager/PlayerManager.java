@@ -95,4 +95,17 @@ public class PlayerManager {
         }
         return inv;
     }
+
+    public void saveAllBackpacks(){
+        for(Map.Entry<UUID, Inventory> entry : playerBackpacks.entrySet()){
+            UUID uuid = entry.getKey();
+            Inventory inv = entry.getValue();
+            try{
+                String data = serializeInventory(inv);
+                savePlayerBackpack(uuid, data);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }
