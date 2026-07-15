@@ -36,15 +36,17 @@ public class PlayerManager {
 
     public void setPlayerBackpack(Player p, Inventory inv) throws IOException {
         String serializedInv = serializeInventory(inv);
-        try(Connection conn = reference.getDatabaseManager().getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("UPDATE backpacks SET inventory = ? WHERE uuid = ?")){
-                ps.setString(1, serializedInv);
-                ps.setString(2, p.getUniqueId().toString());
-                ps.executeUpdate();
+        Bukkit.getScheduler().runTaskAsynchronously(reference, () -> {
+            try(Connection conn = reference.getDatabaseManager().getConnection()){
+                try(PreparedStatement ps = conn.prepareStatement("UPDATE backpacks SET inventory = ? WHERE uuid = ?")){
+                    ps.setString(1, serializedInv);
+                    ps.setString(2, p.getUniqueId().toString());
+                    ps.executeUpdate();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        });
     }
 
     public void deserializeInventory(Inventory inv, String data){
@@ -64,20 +66,22 @@ public class PlayerManager {
 
     public Inventory loadPlayerBackpack(Player p){
         Inventory inv = Bukkit.createInventory(null, 27, "Rucksack");
-        try(Connection conn = reference.getDatabaseManager().getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT inventory FROM backpacks WHERE uuid = ?")){
-                ps.setString(1, p.getUniqueId().toString());
-                ResultSet rs = ps.executeQuery();
-                if(rs.next()){
-                    String data = rs.getString("inventory");
-                    if(data != null && !data.isEmpty()){
-                        deserializeInventory(inv, data);
+        Bukkit.getScheduler().runTaskAsynchronously(reference, () -> {
+            try(Connection conn = reference.getDatabaseManager().getConnection()){
+                try(PreparedStatement ps = conn.prepareStatement("SELECT inventory FROM backpacks WHERE uuid = ?")){
+                    ps.setString(1, p.getUniqueId().toString());
+                    ResultSet rs = ps.executeQuery();
+                    if(rs.next()){
+                        String data = rs.getString("inventory");
+                        if(data != null && !data.isEmpty()){
+                            deserializeInventory(inv, data);
+                        }
                     }
                 }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        });
         return inv;
     }
 }
