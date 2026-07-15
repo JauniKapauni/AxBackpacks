@@ -43,7 +43,7 @@ public class DatabaseManager {
 
     public boolean initDatabaseTable1(){
         try(Connection conn = getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("CREATE TABLE IF NOT EXISTS backpacks(uuid VARCHAR(255), inventory TEXT)")){
+            try(PreparedStatement ps = conn.prepareStatement("CREATE TABLE IF NOT EXISTS backpacks(uuid VARCHAR(36) PRIMARY KEY, inventory LONGTEXT)")){
                 ps.executeUpdate();
                 return true;
             }
