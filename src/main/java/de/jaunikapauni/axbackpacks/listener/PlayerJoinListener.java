@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class PlayerJoinListener implements Listener {
     AxBackpacks reference;
@@ -22,6 +23,7 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
         Player p = e.getPlayer();
+        UUID uuid = p.getUniqueId();
         Bukkit.getScheduler().runTaskAsynchronously(reference, () -> {
             try(Connection conn = reference.getDatabaseManager().getConnection()){
                 try(PreparedStatement ps = conn.prepareStatement("SELECT uuid FROM backpacks WHERE uuid = ?")){
@@ -34,11 +36,11 @@ public class PlayerJoinListener implements Listener {
                             insert.executeUpdate();
                         }
                     }
-                    Inventory backpack = reference.getPlayerManager().loadPlayerBackpack(p);
-                    Bukkit.getScheduler().runTask(reference, () -> {
-                        reference.getPlayerManager().getPlayerBackpacks().put(p.getUniqueId(), backpack);
-                    });
                 }
+                String data = reference.getPlayerManager().loadPlayerBackpack(uuid);
+                Bukkit.getScheduler().runTask(reference, () -> {
+                    reference.getPlayerManager().getPlayerBackpacks().put(uuid, reference.getPlayerManager().createBackpack(data));
+                });
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }

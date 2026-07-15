@@ -26,7 +26,8 @@ public class PlayerQuitListener implements Listener {
         }
         Bukkit.getScheduler().runTaskAsynchronously(reference, () -> {
             try {
-                reference.getPlayerManager().setPlayerBackpack(p, inv);
+                String data = reference.getPlayerManager().serializeInventory(inv);
+                reference.getPlayerManager().savePlayerBackpack(p.getUniqueId(), data);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

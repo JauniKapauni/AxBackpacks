@@ -45,12 +45,11 @@ public class PlayerManager {
         return Base64.getEncoder().encodeToString(baos.toByteArray());
     }
 
-    public void setPlayerBackpack(Player p, Inventory inv) throws IOException {
-        String serializedInv = serializeInventory(inv);
+    public void savePlayerBackpack(UUID uuid, String serializedInventory) throws IOException {
         try (Connection conn = reference.getDatabaseManager().getConnection()) {
             try (PreparedStatement ps = conn.prepareStatement("UPDATE backpacks SET inventory = ? WHERE uuid = ?")) {
-                ps.setString(1, serializedInv);
-                ps.setString(2, p.getUniqueId().toString());
+                ps.setString(1, serializedInventory);
+                ps.setString(2, uuid.toString());
                 ps.executeUpdate();
             }
         } catch (SQLException e) {
@@ -58,7 +57,7 @@ public class PlayerManager {
         }
     }
 
-    public void deserializeInventory(Inventory inv, String data) {
+    public ItemStack[] deserializeInventory(String data) {
         byte[] bytes = Base64.getDecoder().decode(data);
         ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
         try (BukkitObjectInputStream bois = new BukkitObjectInputStream(bais)) {
@@ -67,27 +66,32 @@ public class PlayerManager {
             for (int i = 0; i < size; i++) {
                 items[i] = (ItemStack) bois.readObject();
             }
-            inv.setContents(items);
+            return items;
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Inventory loadPlayerBackpack(Player p) {
-        Inventory inv = Bukkit.createInventory(null, 27, "Rucksack");
+    public String loadPlayerBackpack(UUID uuid) {
         try (Connection conn = reference.getDatabaseManager().getConnection()) {
             try (PreparedStatement ps = conn.prepareStatement("SELECT inventory FROM backpacks WHERE uuid = ?")) {
-                ps.setString(1, p.getUniqueId().toString());
+                ps.setString(1, uuid.toString());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    String data = rs.getString("inventory");
-                    if (data != null && !data.isEmpty()) {
-                        deserializeInventory(inv, data);
-                    }
+                    return rs.getString("inventory");
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+        return "";
+    }
+
+    public Inventory createBackpack(String data){
+        Inventory inv = Bukkit.createInventory(null, 27, "Rucksack");
+        if(data != null && !data.isEmpty()){
+            ItemStack[] items = deserializeInventory(data);
+            inv.setContents(items);
         }
         return inv;
     }
