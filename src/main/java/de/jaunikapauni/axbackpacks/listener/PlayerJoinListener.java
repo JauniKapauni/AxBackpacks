@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.Inventory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,7 +34,10 @@ public class PlayerJoinListener implements Listener {
                             insert.executeUpdate();
                         }
                     }
-                    reference.getPlayerManager().getPlayerBackpacks().put(p.getUniqueId(), reference.getPlayerManager().loadPlayerBackpack(p));
+                    Inventory backpack = reference.getPlayerManager().loadPlayerBackpack(p);
+                    Bukkit.getScheduler().runTask(reference, () -> {
+                        reference.getPlayerManager().getPlayerBackpacks().put(p.getUniqueId(), backpack);
+                    });
                 }
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
