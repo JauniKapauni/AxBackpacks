@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -24,7 +25,7 @@ public class PlayerManager {
     public PlayerManager(AxBackpacks reference){
         this.reference = reference;
     }
-    Map<UUID, Inventory> playerBackpacks;
+    Map<UUID, Inventory> playerBackpacks = new HashMap<>();
     public Map<UUID, Inventory> getPlayerBackpacks(){
         return playerBackpacks;
     }
