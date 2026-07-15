@@ -21,5 +21,6 @@ public class PlayerQuitListener implements Listener {
         Player p = e.getPlayer();
         Inventory inv = reference.getPlayerManager().getPlayerBackpacks().get(p.getUniqueId());
         reference.getPlayerManager().setPlayerBackpack(p, inv);
+        reference.getPlayerManager().getPlayerBackpacks().remove(p.getUniqueId());
     }
 }
