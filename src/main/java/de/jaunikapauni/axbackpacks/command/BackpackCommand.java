@@ -17,7 +17,7 @@ public class BackpackCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         if(!(sender instanceof Player)){
-            sender.sendMessage("only players can run this command!");
+            sender.sendMessage("Only players can run this command!");
             return true;
         }
         Player p = (Player) sender;
