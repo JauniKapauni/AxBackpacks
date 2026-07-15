@@ -19,13 +19,14 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class PlayerManager {
     AxBackpacks reference;
     public PlayerManager(AxBackpacks reference){
         this.reference = reference;
     }
-    Map<UUID, Inventory> playerBackpacks = new HashMap<>();
+    Map<UUID, Inventory> playerBackpacks = new ConcurrentHashMap<>();
     public Map<UUID, Inventory> getPlayerBackpacks(){
         return playerBackpacks;
     }
