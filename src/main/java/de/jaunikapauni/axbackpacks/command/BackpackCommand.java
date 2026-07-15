@@ -26,6 +26,10 @@ public class BackpackCommand implements CommandExecutor {
             return true;
         }
         Inventory inv = reference.getPlayerManager().getPlayerBackpacks().get(p.getUniqueId());
+        if(inv == null){
+            p.sendMessage("Your backpack is still loading...");
+            return true;
+        }
         p.openInventory(inv);
         return true;
     }
