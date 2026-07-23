@@ -4,6 +4,7 @@
 ## Requirements
 - Minecraft Paper 26.1.2 Server
 - MariaDB / MySQL Server
+---
 ## Features
 - Sync of backpack across all backends
 ---
@@ -25,6 +26,7 @@ database:
   username: root
   password:
 ```
+---
 ## Commands & Permissions
 - `/backpack` - `axbackpacks.backpack`
 ---
