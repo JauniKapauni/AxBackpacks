@@ -34,6 +34,7 @@ public final class AxBackpacks extends JavaPlugin {
             throw new RuntimeException(e);
         }
         getCommand("backpack").setExecutor(new BackpackCommand(this));
+        getCommand("bp").setExecutor(new BackpackCommand(this));
         getServer().getPluginManager().registerEvents(new InventoryCloseListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerQuitListener(this), this);

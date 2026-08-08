@@ -14,3 +14,6 @@ commands:
   backpack:
     usage: /backpack
     description: Opens your backpack
+  bp:
+    usage: /bp
+    description: Opens your backpack
