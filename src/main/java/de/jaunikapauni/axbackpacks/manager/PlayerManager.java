@@ -88,7 +88,7 @@ public class PlayerManager {
     }
 
     public Inventory createBackpack(String data){
-        Inventory inv = Bukkit.createInventory(null, 27, "Rucksack");
+        Inventory inv = Bukkit.createInventory(null, 27, "Backpack");
         if(data != null && !data.isEmpty()){
             ItemStack[] items = deserializeInventory(data);
             inv.setContents(items);

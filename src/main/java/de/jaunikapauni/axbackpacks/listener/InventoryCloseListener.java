@@ -17,7 +17,7 @@ public class InventoryCloseListener implements Listener {
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent e) throws IOException {
-        if(e.getView().getTitle().equals("Rucksack")){
+        if(e.getView().getTitle().equals("Backpack")){
             Player p = (Player) e.getPlayer();
             Inventory inv = e.getInventory();
             reference.getPlayerManager().getPlayerBackpacks().put(p.getUniqueId(), inv);
